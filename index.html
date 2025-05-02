@@ -1,0 +1,119 @@
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIBRAS Interativa</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="importmap">
+      {
+        "imports": {
+          "dictionary": "./dictionary.js",
+          "sentence": "./sentence.js"
+        }
+      }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>LIBRAS Interativa</h1>
+        <p>Explore a Língua Brasileira de Sinais</p>
+    </header>
+
+    <main>
+        <section id="dictionary-section">
+            <h2>Dicionário LIBRAS</h2>
+            <p>Digite uma palavra em português para ver o sinal correspondente em LIBRAS.</p>
+            <input type="text" id="word-input" placeholder="Digite uma palavra...">
+            <button id="search-word-btn">Buscar Palavra</button>
+            <div id="dictionary-result" class="result-area">
+                <!-- Resultado da busca por palavra será exibido aqui -->
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="dactylology-section">
+            <h2>Dactilologia (Soletrando)</h2>
+            <p>Digite uma palavra ou nome para ver a soletração manual letra por letra em LIBRAS.</p>
+            <input type="text" id="dactylology-input" placeholder="Digite aqui...">
+            <button id="dactylology-btn">Soletrar</button>
+            <div id="dactylology-result" class="result-area dactylology-display">
+                <!-- Resultado da soletração será exibido aqui -->
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="sentence-section">
+            <h2>Formador de Frases em LIBRAS</h2>
+            <p>Construa frases simples. Lembre-se que a estrutura em LIBRAS pode variar (SVO ou OSV).</p>
+            <div class="sentence-input-area">
+                <div class="input-group">
+                    <label for="subject-input">Sujeito:</label>
+                    <input type="text" id="subject-input" placeholder="Ex: Maria">
+                    <small>Quem faz a ação (pessoa, animal, coisa).</small>
+                    <div class="checkbox-group">
+                         <input type="checkbox" id="subject-is-proper-noun">
+                         <label for="subject-is-proper-noun">Nome Próprio (Soletrar)</label>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="verb-input">Verbo:</label>
+                    <input type="text" id="verb-input" placeholder="Ex: comer">
+                    <small>A ação ou estado.</small>
+                </div>
+                <div class="input-group">
+                    <label for="object-input">Objeto:</label>
+                    <input type="text" id="object-input" placeholder="Ex: maçã">
+                    <small>Quem/o que recebe a ação.</small>
+                </div>
+                 <div class="input-group">
+                    <label for="sentence-type">Tipo de Frase:</label>
+                    <select id="sentence-type">
+                        <option value="affirmative">Afirmativa (Expressão Neutra)</option>
+                        <option value="exclamative">Exclamativa (Sobrancelhas Levantadas)</option>
+                        <option value="negative">Negativa (Adicionar NÃO / Sinal Específico)</option>
+                        <option value="interrogative">Interrogativa (Sobrancelhas Franzidas)</option>
+                    </select>
+                </div>
+            </div>
+            <button id="build-sentence-btn">Formar Frase</button>
+            <div id="sentence-result" class="result-area">
+                <!-- Resultado da formação de frase será exibido aqui -->
+            </div>
+             <p><strong>Nota:</strong> A ordem mais comum em LIBRAS é Sujeito-Verbo-Objeto (SVO) ou Objeto-Sujeito-Verbo (OSV). Esta ferramenta mostrará SVO.</p>
+        </section>
+
+        <hr>
+
+        <section id="explanation-section">
+            <h2>Entendendo LIBRAS</h2>
+
+            <h3>Estrutura de Frases</h3>
+            <p>Em LIBRAS, a expressão facial e corporal são essenciais. As ordens mais comuns são <strong>Sujeito + Verbo + Objeto (SVO)</strong> e <strong>Objeto + Sujeito + Verbo (OSV)</strong>.</p>
+            <ul>
+                <li><strong>Afirmativa:</strong> Expressão facial neutra. Ordem SVO ou OSV.</li>
+                <li><strong>Exclamativa:</strong> Estrutura igual à afirmativa, mas com sobrancelhas levantadas e cabeça levemente inclinada para cima.</li>
+                <li><strong>Negativa:</strong> Pode incluir o sinal "NÃO", alterar o movimento do verbo (ex: QUERER vs NÃO-QUERER), ou usar um sinal negativo específico (ex: PODER vs NÃO-PODER).</li>
+                <li><strong>Interrogativa:</strong> Sobrancelhas franzidas, cabeça levemente inclinada para cima/trás. Palavras como "O QUE", "QUANDO", "ONDE" geralmente vão para o final da frase.</li>
+            </ul>
+
+            <h3>Diferenças Português vs. LIBRAS</h3>
+            <p>LIBRAS tem uma estrutura visual-espacial e omite elementos comuns no português:</p>
+            <ul>
+                <li><strong>Artigos (o, a, os, as):</strong> Inexistentes.</li>
+                <li><strong>Preposições (de, em, com, por):</strong> Muitas vezes incorporadas no sinal ou indicadas por movimento/localização.</li>
+                <li><strong>Conjunções (e, mas, ou):</strong> Relações expressas por pausas, expressões faciais e estrutura.</li>
+                <li><strong>Flexões Verbais (tempo, pessoa):</strong> Indicadas por movimento, localização espacial e expressões, não por palavras auxiliares.</li>
+            </ul>
+            <p><strong>Exemplo:</strong> "Eu não quero ir." pode ser sinalizado como "EU QUERER-NÃO IR".</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Contato: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f89c8d9c978f8b99968c999699b89f95999194d69b9795">[email&#160;protected]</a></p>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module" src="script.js"></script>
+</body>
+</html>
