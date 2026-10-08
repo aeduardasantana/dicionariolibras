@@ -1,123 +1,97 @@
-import { lookupWord, getPortugueseType } from 'dictionary';
-import { buildSentence } from 'sentence';
+import { getAllEntries, getPortugueseType, normalizeText, searchDictionary } from './dictionary.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-    // --- Dictionary Elements ---
-    const wordInput = document.getElementById('word-input');
-    const searchWordBtn = document.getElementById('search-word-btn');
-    const dictionaryResult = document.getElementById('dictionary-result');
+const grid = document.getElementById('dictionary-grid');
+const resultArea = document.getElementById('dictionary-result');
+const searchForm = document.getElementById('search-form');
+const wordInput = document.getElementById('word-input');
+const dactylologyForm = document.getElementById('dactylology-form');
+const dactylologyInput = document.getElementById('dactylology-input');
+const dactylologyResult = document.getElementById('dactylology-result');
 
-    // --- Dactylology Elements ---
-    const dactylologyInput = document.getElementById('dactylology-input');
-    const dactylologyBtn = document.getElementById('dactylology-btn');
-    const dactylologyResult = document.getElementById('dactylology-result');
+function escapeHtml(value = '') {
+  return value.replace(/[&<>'"]/g, (char) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+  }[char]));
+}
 
-    // --- Sentence Builder Elements ---
-    const subjectInput = document.getElementById('subject-input');
-    const subjectIsProperNounCheckbox = document.getElementById('subject-is-proper-noun');
-    const verbInput = document.getElementById('verb-input');
-    const objectInput = document.getElementById('object-input');
-    const sentenceTypeSelect = document.getElementById('sentence-type');
-    const buildSentenceBtn = document.getElementById('build-sentence-btn');
-    const sentenceResult = document.getElementById('sentence-result');
+function entryCard(entry, compact = false) {
+  const safeTerm = escapeHtml(entry.term);
+  const safeCategory = escapeHtml(entry.category);
+  const safeType = escapeHtml(getPortugueseType(entry.type));
+  return `
+    <article class="entry-card${compact ? ' entry-card--result' : ''}">
+      <div class="entry-media">
+        <img src="${entry.image}" alt="Ilustração disponível no acervo para ${safeTerm}" loading="lazy">
+      </div>
+      <div class="entry-body">
+        <div class="entry-meta"><span>${safeCategory}</span><span>${safeType}</span></div>
+        <h3>${safeTerm}</h3>
+        <p>Registro visual do acervo atual. A evolução do projeto prevê vídeo, acepção, região e fonte por entrada.</p>
+      </div>
+    </article>`;
+}
 
-    // --- Dictionary Search ---
-    searchWordBtn.addEventListener('click', searchWord);
-    wordInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            searchWord();
-        }
-    });
+function renderGrid() {
+  const entries = getAllEntries();
+  grid.innerHTML = entries.map((entry) => entryCard(entry)).join('');
+}
 
-    function searchWord() {
-        const word = wordInput.value.trim();
-        dictionaryResult.innerHTML = ''; // Clear previous results
+function renderSearch(query) {
+  const results = searchDictionary(query);
+  if (!query.trim()) {
+    resultArea.innerHTML = '<p class="feedback feedback--warning">Digite uma palavra para iniciar a busca.</p>';
+    return;
+  }
 
-        if (!word) {
-            dictionaryResult.innerHTML = '<p>Por favor, digite uma palavra.</p>';
-            return;
-        }
+  if (!results.length) {
+    resultArea.innerHTML = `
+      <div class="feedback">
+        <strong>Nenhuma entrada encontrada para “${escapeHtml(query)}”.</strong>
+        <span>O acervo ainda é reduzido. Tente uma palavra mais curta ou explore os termos disponíveis abaixo.</span>
+      </div>`;
+    return;
+  }
 
-        const resultData = lookupWord(word);
+  resultArea.innerHTML = `<div class="result-list">${results.map((entry) => entryCard(entry, true)).join('')}</div>`;
+}
 
-        if (resultData) {
-            const portugueseType = getPortugueseType(resultData.type);
-            const resultItemHTML = `
-                <div class="result-item">
-                    <img src="./assets/${resultData.img}" alt="Sinal LIBRAS para ${word}">
-                    <span>${word.toUpperCase()}</span>
-                    <small>Tipo: ${portugueseType}</small>
-                </div>
-            `;
-            dictionaryResult.innerHTML = resultItemHTML;
-        } else {
-            dictionaryResult.innerHTML = `<p>O termo "${word}" não foi localizado em nosso vocabulário.</p>`;
-        }
-        wordInput.value = ''; // Clear input after search
-    }
-
-    // --- Dactylology Generator ---
-    dactylologyBtn.addEventListener('click', generateDactylology);
-    dactylologyInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            generateDactylology();
-        }
-    });
-
-    function generateDactylology() {
-        const word = dactylologyInput.value.trim();
-        dactylologyResult.innerHTML = ''; // Clear previous result
-
-        if (!word) {
-            dactylologyResult.innerHTML = '<p>Por favor, digite uma palavra ou nome para soletrar.</p>';
-            return;
-        }
-
-        // Basic validation: Allow letters, numbers, and maybe spaces. Filter others?
-        // For now, keep it simple and let the font handle rendering.
-        const letters = word.toUpperCase().split('');
-
-        const lettersHTML = letters.map(letter => {
-            // Handle space explicitly if needed, otherwise just wrap the letter
-            if (letter === ' ') {
-                return '<span class="letter-item" style="border: none; background: none; width: 20px;"></span>'; // Represent space
-            }
-             // Filter only A-Z and 0-9 for the LIBRAS font (assuming it supports these)
-            if (/^[A-Z0-9]$/.test(letter)) {
-                 return `<span class="letter-item">${letter}</span>`;
-            }
-            // Optionally represent unsupported characters differently
-            return `<span class="letter-item" style="font-family: sans-serif; font-size: 0.8em;">?</span>`;
-
-        }).join('');
-
-        dactylologyResult.innerHTML = lettersHTML;
-    }
-
-    // --- Sentence Builder ---
-    buildSentenceBtn.addEventListener('click', createSentence);
-    // Add listeners for Enter key on other sentence inputs for convenience
-     subjectInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') createSentence(); });
-     verbInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') createSentence(); });
-     objectInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') createSentence(); });
-     // Also trigger on checkbox change or select change? Maybe not needed.
-
-
-    function createSentence() {
-        const subject = subjectInput.value.trim();
-        const verb = verbInput.value.trim();
-        const object = objectInput.value.trim();
-        const sentenceType = sentenceTypeSelect.value;
-        const isSubjectProperNoun = subjectIsProperNounCheckbox.checked;
-
-        sentenceResult.innerHTML = ''; // Clear previous result
-
-        if (!subject && !verb && !object) {
-            sentenceResult.innerHTML = '<p>Por favor, insira Sujeito, Verbo ou Objeto.</p>';
-            return;
-        }
-
-        const sentenceHTML = buildSentence(subject, verb, object, sentenceType, isSubjectProperNoun);
-        sentenceResult.innerHTML = sentenceHTML;
-    }
+searchForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  renderSearch(wordInput.value);
 });
+
+wordInput.addEventListener('input', () => {
+  const query = wordInput.value.trim();
+  if (query.length >= 2) renderSearch(query);
+  if (!query) resultArea.innerHTML = '';
+});
+
+function toDactylologyLetters(value) {
+  const normalized = normalizeText(value).toUpperCase();
+  return normalized.replace(/[^A-Z0-9 ]/g, '').split('');
+}
+
+function renderDactylology(value) {
+  const original = value.trim();
+  const letters = toDactylologyLetters(original);
+  if (!original || !letters.length) {
+    dactylologyResult.innerHTML = '<p class="empty-state">Digite uma palavra ou nome usando letras e números.</p>';
+    return;
+  }
+
+  const letterHtml = letters.map((letter) => {
+    if (letter === ' ') return '<span class="manual-space" aria-hidden="true"></span>';
+    return `<span class="manual-letter" aria-label="${letter}">${letter}</span>`;
+  }).join('');
+
+  dactylologyResult.innerHTML = `
+    <div class="manual-word" aria-label="Dactilologia de ${escapeHtml(original)}">${letterHtml}</div>
+    <small>${escapeHtml(original.toUpperCase())}</small>`;
+}
+
+dactylologyForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  renderDactylology(dactylologyInput.value);
+});
+
+renderGrid();
