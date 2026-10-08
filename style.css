@@ -148,3 +148,7 @@ button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+/* Aviso público de projeto em desenvolvimento */
+.dev-ribbon{position:fixed;top:120px;right:0;z-index:9999;background:#a12b27;color:#fff;padding:13px 9px;font:700 12px/1.35 system-ui,sans-serif;letter-spacing:.07em;text-transform:uppercase;writing-mode:vertical-rl;transform:rotate(180deg);border-radius:0 10px 10px 0;box-shadow:0 5px 18px #0002;pointer-events:none}
+@media(max-width:768px){.dev-ribbon{top:auto;bottom:18px;right:0;font-size:10px;padding:10px 7px}}
