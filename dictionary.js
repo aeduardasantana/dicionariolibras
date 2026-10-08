@@ -1,70 +1,54 @@
-// Simple dictionary mapping Portuguese words to image assets and type
-const dictionaryData = {
-    "surdo": { img: "surdo.png", type: "noun/adjective" },
-    "libras": { img: "libras.png", type: "noun" },
-    "trigo": { img: "trigo.png", type: "noun" },
-    "eu": { img: "eu.png", type: "pronoun"},
-    "querer": { img: "querer.png", type: "verb", negative_variant: "nao_querer.png"},
-    "comer": { img: "comer.png", type: "verb"},
-    "maçã": { img: "maca.png", type: "noun"},
-    "não": {img: "nao.png", type: "adverb"},
-    "nao_querer": {img: "nao_querer.png", type: "verb_negation"}, 
-    // Add more words here...
-    // Example structure for verbs with specific negative forms:
-    // "poder": { img: "poder.png", type: "verb", negative_variant: "nao_poder.png" },
-};
+const entries = [
+  { slug: 'surdo', term: 'surdo', image: 'surdo.png', type: 'noun/adjective', category: 'Identidade e pessoas', aliases: ['surda'] },
+  { slug: 'libras', term: 'Libras', image: 'libras.png', type: 'noun', category: 'Língua e comunicação', aliases: ['lingua brasileira de sinais'] },
+  { slug: 'trigo', term: 'trigo', image: 'trigo.png', type: 'noun', category: 'Alimentos', aliases: [] },
+  { slug: 'eu', term: 'eu', image: 'eu.png', type: 'pronoun', category: 'Pronomes', aliases: [] },
+  { slug: 'querer', term: 'querer', image: 'querer.png', type: 'verb', category: 'Verbos', aliases: ['desejar'], negativeVariant: 'nao_querer.png' },
+  { slug: 'comer', term: 'comer', image: 'comer.png', type: 'verb', category: 'Verbos', aliases: ['alimentar'] },
+  { slug: 'maca', term: 'maçã', image: 'maca.png', type: 'noun', category: 'Alimentos', aliases: ['maca'] },
+  { slug: 'nao', term: 'não', image: 'nao.png', type: 'adverb', category: 'Expressões', aliases: ['nao'] }
+];
 
-// Mapping for type translation
 const typeTranslations = {
-    "noun": "substantivo",
-    "verb": "verbo",
-    "adjective": "adjetivo",
-    "adverb": "advérbio",
-    "pronoun": "pronome",
-    "noun/adjective": "substantivo/adjetivo",
-    "verb_negation": "verbo (negativa)",
-    "negation": "negação",
-    "expression": "expressão" 
+  noun: 'substantivo',
+  verb: 'verbo',
+  adjective: 'adjetivo',
+  adverb: 'advérbio',
+  pronoun: 'pronome',
+  'noun/adjective': 'substantivo / adjetivo'
 };
 
-/**
- * Translates the type identifier to Portuguese.
- * @param {string} typeIdentifier - The English type identifier (e.g., "noun").
- * @returns {string} - The Portuguese translation or the original identifier if not found.
- */
+export function normalizeText(value = '') {
+  return value
+    .toString()
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, ' ');
+}
+
 export function getPortugueseType(typeIdentifier) {
-    if (!typeIdentifier) return 'Não especificado';
-    const parts = typeIdentifier.split('/');
-    const translatedParts = parts.map(part => typeTranslations[part.trim()] || part.trim());
-    return translatedParts.join('/');
+  return typeTranslations[typeIdentifier] || 'não especificado';
 }
 
-/**
- * Looks up a word in the dictionary.
- * @param {string} word - The Portuguese word to look up (case-insensitive).
- * @returns {object | null} - The dictionary entry {img, type, ...} or null if not found.
- */
-export function lookupWord(word) {
-    if (!word) return null;
-    const lowerCaseWord = word.toLowerCase().trim();
-    return dictionaryData[lowerCaseWord] || null;
+export function getAllEntries() {
+  return [...entries].sort((a, b) => a.term.localeCompare(b.term, 'pt-BR'));
 }
 
-/**
- * Gets the negative sign for a verb if available, otherwise the generic 'NÃO' sign.
- * @param {string} verb - The verb to get the negative sign for.
- * @returns {object | null} - The dictionary entry for the negative sign or null.
- */
-export function getNegativeSign(verb) {
-    const verbData = lookupWord(verb);
-    if (verbData?.negative_variant) {
-        const negativeVariantKey = verbData.negative_variant.replace('.png', '');
-        const negativeVariantData = dictionaryData[negativeVariantKey];
-        if (negativeVariantData) {
-            return { ...negativeVariantData, original_verb: verb }; 
-        }
-        return { img: verbData.negative_variant, type: 'verb_negation', original_verb: verb };
-    }
-    const naoData = lookupWord("não");
-    return naoData ? { ...naoData, type: 'negation' } : null; 
+export function searchDictionary(query) {
+  const normalizedQuery = normalizeText(query);
+  if (!normalizedQuery) return [];
+
+  const exact = entries.filter((entry) => {
+    const candidates = [entry.term, entry.slug, ...(entry.aliases || [])].map(normalizeText);
+    return candidates.includes(normalizedQuery);
+  });
+  if (exact.length) return exact;
+
+  return entries.filter((entry) => {
+    const candidates = [entry.term, entry.slug, entry.category, ...(entry.aliases || [])].map(normalizeText);
+    return candidates.some((candidate) => candidate.includes(normalizedQuery) || normalizedQuery.includes(candidate));
+  });
 }
