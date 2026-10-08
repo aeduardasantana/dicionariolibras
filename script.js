@@ -20,13 +20,11 @@ function entryCard(entry, compact = false) {
   const safeType = escapeHtml(getPortugueseType(entry.type));
   return `
     <article class="entry-card${compact ? ' entry-card--result' : ''}">
-      <div class="entry-media">
-        <img src="${entry.image}" alt="Ilustração disponível no acervo para ${safeTerm}" loading="lazy">
-      </div>
+
       <div class="entry-body">
         <div class="entry-meta"><span>${safeCategory}</span><span>${safeType}</span></div>
         <h3>${safeTerm}</h3>
-        <p>Registro visual do acervo atual. A evolução do projeto prevê vídeo, acepção, região e fonte por entrada.</p>
+        <p>Entrada lexical em revisão. Não há representação visual validada disponível para este termo.</p>
       </div>
     </article>`;
 }
