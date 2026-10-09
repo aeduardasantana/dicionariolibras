@@ -174,3 +174,60 @@ button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid 
     letter-spacing: .06em;
   }
 }
+
+
+/* Formador de frases — módulo de aprendizagem restaurado */
+.hero-actions { display:flex; flex-wrap:wrap; align-items:center; gap:12px; }
+.primary-link,.secondary-link { text-decoration:none; border-radius:12px; padding:13px 18px; font-weight:800; display:inline-flex; align-items:center; }
+.primary-link { background:var(--teal); color:#fff; }
+.primary-link:hover { background:var(--teal-dark); }
+.secondary-link { color:var(--navy); border:1px solid var(--line); }
+.learning-caveat { margin:18px 0 0; color:var(--muted); font-size:.88rem; }
+.lab-layout { display:grid; grid-template-columns:minmax(0,1.7fr) minmax(260px,.85fr); gap:20px; align-items:start; }
+.sentence-form,.lab-side,.sentence-result-wrap { border:1px solid var(--line); border-radius:20px; padding:25px; box-shadow:var(--shadow); }
+.sentence-form,.sentence-result-wrap { background:#fff; }
+.sentence-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+.sentence-field label { display:block; font-weight:800; color:var(--navy); margin-bottom:7px; }
+.sentence-field label small { color:var(--muted); font-weight:500; }
+.sentence-field input,.sentence-field select { background:#fff; color:var(--ink); width:100%; min-width:0; min-height:47px; padding:10px 12px; border:1px solid #b9c9c7; border-radius:10px; font:inherit; }
+.sentence-field select:focus-visible { outline:3px solid rgba(22,124,128,.28); outline-offset:2px; }
+.sentence-check { display:flex; gap:11px; align-items:flex-start; margin:22px 0; font-size:.92rem; font-weight:600; color:var(--navy); }
+.sentence-check input { margin-top:6px; accent-color:var(--teal); }
+.sentence-actions { display:flex; gap:10px; flex-wrap:wrap; }
+.sentence-submit,.sentence-clear { border-radius:10px; padding:11px 20px; font:inherit; font-weight:800; }
+.sentence-submit { color:white; background:var(--teal); border:1px solid var(--teal); }
+.sentence-submit:hover { background:var(--teal-dark); }
+.sentence-clear { color:var(--navy); background:white; border:1px solid var(--line); }
+.lab-side { background:var(--navy); color:#dae9ea; }
+.lab-side h3 { color:#fff; font-size:1.35rem; }
+.lab-side p { color:#c7d9db; }
+.sentence-samples { display:grid; gap:10px; margin:18px 0; }
+.sentence-samples button { padding:12px 14px; border-radius:11px; background:#214958; color:#fff; text-align:left; border:1px solid #5b8490; font:inherit; font-weight:800; }
+.sentence-samples button:hover,.sentence-samples button:focus-visible { background:#316575; }
+.sentence-samples button small { display:block; margin-top:5px; font-size:.77rem; font-weight:500; color:#d1e1e4; }
+.lab-limitation { font-size:.81rem; }
+.sentence-result-wrap { margin-top:20px; }
+.result-heading { display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; }
+.result-heading h3 { font-size:1.4rem; }
+.result-heading span { color:var(--teal-dark); border-radius:30px; background:#e6f3f1; padding:7px 11px; font-size:.76rem; font-weight:800; }
+.sentence-result { margin-top:18px; padding:19px; min-height:110px; border-radius:13px; border:1px dashed #93bbb8; background:#f4faf8; }
+.sentence-type-label { margin:0 0 12px; color:var(--teal-dark); font-weight:800; letter-spacing:.05em; text-transform:uppercase; font-size:.78rem; }
+.phrase-sequence { display:flex; flex-wrap:wrap; gap:8px; }
+.phrase-chip { max-width:100%; overflow-wrap:anywhere; display:inline-block; border-radius:9px; padding:9px 12px; background:var(--navy); color:#fff; font-size:1.06rem; font-weight:800; }
+.sentence-note { color:var(--navy); font-weight:600; }
+.sentence-detail { color:var(--muted); }
+.sentence-disclaimer { background:#f7f0e1; border-radius:9px; padding:12px 14px; font-size:.88rem; color:#6b542b; }
+.grammar-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+.grammar-grid article { background:white; border:1px solid var(--line); border-radius:16px; padding:22px; }
+.grammar-grid article span { display:block; color:var(--teal-dark); font-size:.73rem; font-weight:800; margin-bottom:11px; }
+.grammar-grid article h3 { font-size:1.2rem; }
+.grammar-grid article p { font-size:.9rem; color:var(--muted); }
+.grammar-grid article strong { display:block; color:var(--navy); background:#e7f3f0; border-radius:8px; padding:10px; margin-top:17px; font-size:.9rem; }
+.grammar-footer { background:var(--warm); border-left:3px solid var(--teal); border-radius:9px; padding:16px 19px; color:var(--navy); margin-top:24px; }
+.dictionary-context { background:#fff; border:1px solid var(--line); border-radius:18px; padding:25px; }
+.dictionary-context h3 { font-size:1.3rem; }
+.dictionary-context p { color:var(--muted); }
+.dictionary-context a { color:var(--teal-dark); font-weight:800; }
+#dicionario .search-box { margin-top:23px; }
+@media(max-width:900px) { .lab-layout {grid-template-columns:1fr;} .grammar-grid {grid-template-columns:repeat(2,minmax(0,1fr));} }
+@media(max-width:600px) { .sentence-fields,.grammar-grid {grid-template-columns:1fr;} .sentence-form,.lab-side,.sentence-result-wrap {padding:18px;} .primary-link,.secondary-link {width:100%;justify-content:center;} }
