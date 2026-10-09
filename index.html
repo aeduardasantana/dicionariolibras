@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dicionário Libras | Consulta visual de sinais</title>
-  <meta name="description" content="Consulte sinais de Libras por palavra em português, explore o acervo e use a dactilologia como apoio ao estudo.">
+  <title>Formação de frases e Dicionário Libras | Libras Interativa</title>
+  <meta name="description" content="Pratique formação de frases em Libras, explore a gramática visual e consulte um acervo de vocabulário em construção.">
   <meta name="theme-color" content="#123242">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Dicionário Libras">
@@ -25,39 +25,145 @@
         <span>Dicionário Libras</span>
       </a>
       <nav aria-label="Navegação principal">
-        <a href="#explorar">Explorar</a>
+        <a href="#formar-frases">Formar frases</a>
+        <a href="#gramatica">Estrutura</a>
+        <a href="#dicionario">Dicionário</a>
         <a href="#dactilologia">Dactilologia</a>
-        <a href="#metodologia">Metodologia</a>
         <a href="#sobre">Sobre</a>
       </nav>
     </div>
   </header>
 
   <main id="conteudo">
+
     <section id="topo" class="hero">
       <div class="container hero-grid">
         <div>
-          <p class="eyebrow">GEB Inclusão · Produto digital</p>
-          <span class="status-badge">Acervo em evolução editorial</span>
-          <h1>Encontre sinais com contexto.</h1>
-          <p class="hero-copy">Use uma palavra em português como ponto de entrada para consultar o acervo disponível. A referência territorial deste acervo é a comunidade surda de Goiânia, Goiás. A Libras possui variações regionais e contextuais; por isso, o projeto não se apresenta como tradutor automático.</p>
+          <p class="eyebrow">GEB Inclusão · Libras Interativa</p>
+          <span class="status-badge">Ferramenta de aprendizagem em desenvolvimento</span>
+          <h1>Aprenda a formar frases em Libras.</h1>
+          <p class="hero-copy">Explore sujeito, verbo, objeto, topicalização e tipos de frases. A formação de frases é o recurso principal desta fase; o dicionário continua em ampliação.</p>
+          <div class="hero-actions">
+            <a href="#formar-frases" class="primary-link">Praticar formação de frases →</a>
+            <a href="#dicionario" class="secondary-link">Consultar vocabulário</a>
+          </div>
+          <p class="learning-caveat">O laboratório organiza glosas de estudo. Não traduz automaticamente o português para Libras.</p>
+        </div>
+        <aside class="hero-panel" aria-label="Etapas da aprendizagem">
+          <p class="panel-kicker">APRENDA EM TRÊS ETAPAS</p>
+          <ol>
+            <li><span>01</span><div><strong>Compreenda</strong><small>Conheça a organização das frases e a expressão não manual.</small></div></li>
+            <li><span>02</span><div><strong>Construa</strong><small>Experimente diferentes elementos e tipos de frase.</small></div></li>
+            <li><span>03</span><div><strong>Compare</strong><small>Analise a estrutura proposta, respeitando o contexto.</small></div></li>
+          </ol>
+        </aside>
+      </div>
+    </section>
 
+    <section id="formar-frases" class="section section-alt">
+      <div class="container">
+        <div class="section-heading">
+          <div><p class="eyebrow">Recurso recuperado · Laboratório de frases</p><h2>Formador de frases</h2></div>
+          <p>Preencha palavras-base ou glosas curtas. A ferramenta mostra uma <strong>hipótese didática</strong> de organização, não a sinalização definitiva de uma frase.</p>
+        </div>
+        <div class="lab-layout">
+          <form id="sentence-form" class="sentence-form">
+            <div class="sentence-fields">
+              <div class="sentence-field">
+                <label for="time-input">Tempo <small>(opcional)</small></label>
+                <input id="time-input" name="time" type="text" maxlength="45" placeholder="Ex.: ONTEM">
+              </div>
+              <div class="sentence-field">
+                <label for="subject-input">Sujeito</label>
+                <input id="subject-input" name="subject" type="text" maxlength="45" placeholder="Ex.: EU ou MARIA">
+              </div>
+              <div class="sentence-field">
+                <label for="verb-input">Verbo</label>
+                <input id="verb-input" name="verb" type="text" maxlength="45" placeholder="Ex.: COMER">
+              </div>
+              <div class="sentence-field">
+                <label for="object-input">Objeto / complemento</label>
+                <input id="object-input" name="object" type="text" maxlength="45" placeholder="Ex.: MAÇÃ">
+              </div>
+              <div class="sentence-field">
+                <label for="sentence-type">Tipo de frase</label>
+                <select id="sentence-type" name="sentenceType">
+                  <option value="affirmative">Afirmativa</option>
+                  <option value="negative">Negativa</option>
+                  <option value="interrogative">Interrogativa</option>
+                  <option value="exclamative">Exclamativa</option>
+                </select>
+              </div>
+              <div class="sentence-field">
+                <label for="sentence-order">Estrutura para observar</label>
+                <select id="sentence-order" name="sentenceOrder">
+                  <option value="svo">SVO · Sujeito – Verbo – Objeto</option>
+                  <option value="osv">OSV · Objeto – Sujeito – Verbo</option>
+                </select>
+              </div>
+            </div>
+            <label class="sentence-check"><input id="subject-is-proper-noun" type="checkbox"> Sujeito é nome próprio (indicar datilologia)</label>
+            <div class="sentence-actions">
+              <button type="submit" class="sentence-submit">Formar frase →</button>
+              <button type="reset" class="sentence-clear">Limpar</button>
+            </div>
+          </form>
+          <aside class="lab-side">
+            <h3>Experimente estes modelos</h3>
+            <p>Compare a ordem e os tipos de frase com exemplos simples.</p>
+            <div class="sentence-samples">
+              <button type="button" data-sentence-example="svo">EU · COMER · MAÇÃ <small>SVO · afirmativa</small></button>
+              <button type="button" data-sentence-example="negative">EU · QUERER · MAÇÃ <small>SVO · negativa</small></button>
+              <button type="button" data-sentence-example="osv">MAÇÃ · EU · QUERER <small>OSV · tópico inicial</small></button>
+            </div>
+            <p class="lab-limitation">Os exemplos são construções para observar a ordem dos elementos. A validade em Libras depende do contexto e de expressões não manuais.</p>
+          </aside>
+        </div>
+        <div class="sentence-result-wrap">
+          <div class="result-heading"><h3>Resultado da prática</h3><span>Glosa de estudo · não validada</span></div>
+          <div id="sentence-result" class="sentence-result" aria-live="polite" role="status">
+            <p class="empty-state">Preencha os campos ou escolha um exemplo para formar uma hipótese de frase.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gramatica" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <div><p class="eyebrow">Conteúdo recuperado · Entendendo Libras</p><h2>Como as frases se organizam?</h2></div>
+          <p>Além da ordem dos elementos, a Libras utiliza espaço de sinalização e expressões faciais e corporais para construir sentido.</p>
+        </div>
+        <div class="grammar-grid">
+          <article><span>01 · ORGANIZAÇÃO</span><h3>SVO e OSV</h3><p>Sujeito–Verbo–Objeto é uma ordem recorrente. A topicalização pode destacar o objeto no início, mas não há uma fórmula que funcione para todos os enunciados.</p><strong>MAÇÃ, EU GOSTO</strong></article>
+          <article><span>02 · AFIRMAÇÃO</span><h3>Afirmativas e exclamativas</h3><p>As expressões não manuais podem diferenciar intenções e adicionar ênfase. Não basta acrescentar pontuação escrita.</p><strong>COMER, EU QUER</strong></article>
+          <article><span>03 · NEGAÇÃO</span><h3>Frases negativas</h3><p>A negação pode envolver sinais específicos, modificação verbal e marcas não manuais, de acordo com o contexto.</p><strong>MAÇÃ, EU NÃO-QUERO</strong></article>
+          <article><span>04 · PERGUNTAS</span><h3>Frases interrogativas</h3><p>Perguntas exigem atenção às marcas não manuais. Palavras interrogativas como ONDE, QUEM e QUANDO participam da estrutura.</p><strong>VOCÊ CASA ONDE?</strong></article>
+          <article><span>05 · TEMPO</span><h3>Referência temporal</h3><p>Indicações temporais podem aparecer no início. A marcação de tempo e aspecto em Libras não replica automaticamente flexões do português.</p><strong>ONTEM, EU PASSEAR</strong></article>
+          <article><span>06 · DUAS LÍNGUAS</span><h3>Português × Libras</h3><p>Artigos, preposições, concordância e conectivos não são transferidos necessariamente palavra a palavra. Uma glosa não é tradução pronta.</p><strong>CASA PEDRO, JESUS ENTRAR</strong></article>
+        </div>
+        <p class="grammar-footer"><strong>Material de referência:</strong> Unidade II do Curso de Libras — estrutura de frases afirmativas, interrogativas e negativas. O formador é um apoio introdutório, não uma ferramenta de tradução ou validação linguística.</p>
+      </div>
+    </section>
+
+    <section id="dicionario" class="section section-alt">
+      <div class="container two-col">
+        <div>
+          <p class="eyebrow">Recurso complementar · Acervo em crescimento</p>
+          <h2>Consultar vocabulário</h2>
+          <p>O dicionário ainda possui poucas entradas e as mídias dos sinais aguardam validação. A consulta permanece disponível como recurso complementar.</p>
           <form id="search-form" class="search-box" role="search" novalidate>
             <label for="word-input" class="sr-only">Buscar palavra em português</label>
             <input id="word-input" name="q" type="search" autocomplete="off" placeholder="Ex.: comer, Libras, surdo…" aria-describedby="search-help">
             <button type="submit">Buscar</button>
           </form>
-          <p id="search-help" class="helper">A busca ignora diferenças simples de maiúsculas, minúsculas e acentuação.</p>
+          <p id="search-help" class="helper">A busca ignora maiúsculas, minúsculas e acentuação.</p>
           <div id="dictionary-result" class="search-result" aria-live="polite"></div>
         </div>
-
-        <aside class="hero-panel" aria-label="Como usar">
-          <p class="panel-kicker">COMECE POR AQUI</p>
-          <ol>
-            <li><span>01</span><div><strong>Busque</strong><small>Digite uma palavra em português.</small></div></li>
-            <li><span>02</span><div><strong>Confira</strong><small>Veja a entrada e a classificação disponível.</small></div></li>
-            <li><span>03</span><div><strong>Compare</strong><small>Considere contexto e possíveis variações.</small></div></li>
-          </ol>
+        <aside class="dictionary-context">
+          <h3>Vocabulário em revisão</h3>
+          <p>Cada entrada deverá receber registro de fonte, variação regional e mídia linguística validada. Por enquanto, consulte os termos e as categorias disponíveis.</p>
+          <a href="#explorar">Explorar entradas catalogadas →</a>
         </aside>
       </div>
     </section>
@@ -98,13 +204,13 @@
     <section id="metodologia" class="section section-dark">
       <div class="container">
         <div class="section-heading light">
-          <div><p class="eyebrow">Metodologia</p><h2>O que este dicionário pretende registrar</h2></div>
+          <div><p class="eyebrow">Metodologia</p><h2>Critérios para desenvolver o acervo</h2></div>
           <p>Uma entrada profissional precisa ir além da correspondência entre uma palavra em português e uma imagem.</p>
         </div>
         <div class="principles-grid">
           <article><span>01</span><h3>Acepção antes da equivalência</h3><p>Uma palavra pode ter sentidos diferentes e, consequentemente, sinais diferentes.</p></article>
           <article><span>02</span><h3>Variação faz parte da língua</h3><p>Sinais podem variar por região, comunidade, contexto e uso.</p></article>
-          <article><span>03</span><h3>Mídia precisa mostrar o sinal</h3><p>O acervo atual usa ilustrações estáticas; a evolução prevista prioriza vídeo e registro da fonte.</p></article>
+          <article><span>03</span><h3>Mídia precisa mostrar o sinal</h3><p>As imagens legadas estão preservadas para análise; os sinais só devem ser publicados após validação.</p></article>
         </div>
       </div>
     </section>
@@ -125,11 +231,11 @@
   <section aria-labelledby="trilha-libras-titulo" style="max-width:1120px;width:calc(100% - 32px);margin:3rem auto;padding:2rem;border:1px solid #cbd5e1;border-radius:20px;background:#f8fafc;color:#172033;font-family:system-ui,sans-serif">
     <p style="margin:0 0 .5rem;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase">Recursos conectados · GEB Tecnologia</p>
     <h2 id="trilha-libras-titulo" style="font-size:clamp(1.6rem,3vw,2.3rem);margin:0 0 .8rem">Continue sua aprendizagem de Libras</h2>
-    <p style="max-width:760px;line-height:1.6">Cada ferramenta possui uma finalidade diferente: conhecer o alfabeto manual, praticar datilologia e consultar sinais. Soletrar palavras não é o mesmo que traduzi-las para Libras.</p>
+    <p style="max-width:760px;line-height:1.6">Cada ferramenta possui uma finalidade diferente: conhecer o alfabeto manual, praticar datilologia e formar frases. Soletrar palavras não é o mesmo que traduzi-las para Libras.</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:1rem;margin-top:1.5rem">
       <a href="https://alfabetolibras.compassrosesystems.com.br/" style="display:block;padding:1.3rem;background:white;border:1px solid #d5dde6;border-radius:14px;color:#172033;text-decoration:none"><span style="display:block;font-size:.75rem;opacity:.7">01 / RECURSO</span><strong style="display:block;margin:.5rem 0;font-size:1.1rem">Alfabeto manual ↗</strong><span style="font-size:.88rem;line-height:1.5">Observe as 26 letras em vídeo.</span></a>
       <a href="https://datilologia.compassrosesystems.com.br/" style="display:block;padding:1.3rem;background:white;border:1px solid #d5dde6;border-radius:14px;color:#172033;text-decoration:none"><span style="display:block;font-size:.75rem;opacity:.7">02 / RECURSO</span><strong style="display:block;margin:.5rem 0;font-size:1.1rem">Datilologia ↗</strong><span style="font-size:.88rem;line-height:1.5">Pratique nomes e palavras com o alfabeto manual.</span></a>
-      <a href="https://dicionariolibras.compassrosesystems.com.br/" style="display:block;padding:1.3rem;background:white;border:1px solid #d5dde6;border-radius:14px;color:#172033;text-decoration:none"><span style="display:block;font-size:.75rem;opacity:.7">03 / RECURSO</span><strong style="display:block;margin:.5rem 0;font-size:1.1rem">Dicionário Libras ↗</strong><span style="font-size:.88rem;line-height:1.5">Consulte sinais e reconheça variações de uso.</span></a>
+      <a href="#formar-frases" style="display:block;padding:1.3rem;background:white;border:1px solid #d5dde6;border-radius:14px;color:#172033;text-decoration:none"><span style="display:block;font-size:.75rem;opacity:.7">03 / RECURSO</span><strong style="display:block;margin:.5rem 0;font-size:1.1rem">Formador de frases ↗</strong><span style="font-size:.88rem;line-height:1.5">Pratique estruturas e tipos de frases no próprio site.</span></a>
     </div>
   </section>
 </main>
@@ -137,5 +243,6 @@
   <footer role="contentinfo" style="border-top:1px solid #d0d5db;padding:1.1rem 1rem;background:transparent;color:#202a35;font-family:system-ui,sans-serif;text-align:center"><div style="width:min(1120px,100%);margin:auto;font-size:.85rem"><p style="margin:.25rem 0">© 2026 Dicionário Libras. Todos os direitos reservados.</p><p style="margin:.25rem 0">Desenvolvido por <a href="https://gebtecnologia.grupoeduardabispo.com.br/" style="color:inherit;text-underline-offset:3px" rel="noopener noreferrer">Compass Rose Systems · GEB Tecnologia</a></p><p style="margin:.65rem 0 0;line-height:1.5"><strong>Referência linguística e cultural:</strong> comunidade surda de Goiânia/Goiás. Esta identificação não constitui declaração de validação ou endosso formal da comunidade.</p></div></footer>
 
   <script type="module" src="script.js"></script>
+  <script type="module" src="sentence.js"></script>
 </body>
 </html>
